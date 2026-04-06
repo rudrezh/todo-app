@@ -2,15 +2,31 @@ version: "3.8"
 
 services:
   backend:
-    build: ./backend
+    image: your-dockerhub-username/todo-backend:v2
+    container_name: backend
     ports:
       - "5000:5000"
     environment:
       - DATABASE_URL=sqlite:///./test.db
 
   frontend:
-    build: ./frontend
+    image: your-dockerhub-username/todo-frontend:v2
+    container_name: frontend
     ports:
-      - "8080:80"
+      - "80:80"
     depends_on:
       - backend
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
