@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   backend:
-    image: your-dockerhub-username/todo-backend:v2
+    image: rudrezh/todo-backend:v2
     container_name: backend
     ports:
       - "5000:5000"
@@ -10,7 +10,7 @@ services:
       - DATABASE_URL=sqlite:///./test.db
 
   frontend:
-    image: your-dockerhub-username/todo-frontend:v2
+    image: rudrezh/todo-frontend:v2
     container_name: frontend
     ports:
       - "80:80"
