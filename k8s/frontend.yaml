@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: todo-frontend:v2
+        image: rudrezh/todo-frontend:v2
         imagePullPolicy: IfNotPresent
 
         ports:

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: todo-backend:v2
+        image: rudrezh/todo-backend:v2
         imagePullPolicy: IfNotPresent
 
         ports:
