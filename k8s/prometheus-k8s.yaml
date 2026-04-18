@@ -10,32 +10,29 @@ data:
 
     scrape_configs:
 
-      # Your backend metrics
+      # ✅ Backend metrics
       - job_name: 'backend'
         static_configs:
           - targets: ['backend:5000']
 
-      # Kubernetes pods (auto-discovery)
+      # ✅ kube-state-metrics (FIXED namespace)
+      - job_name: 'kube-state-metrics'
+        static_configs:
+          - targets: ['kube-state-metrics:8080']
+
+      # ✅ Node exporter
+      - job_name: 'node-exporter'
+        static_configs:
+          - targets: ['node-exporter:9100']
+
+      # ✅ Kubernetes pods (NO annotation dependency)
       - job_name: 'kubernetes-pods'
         kubernetes_sd_configs:
           - role: pod
         relabel_configs:
-          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+          - source_labels: [__meta_kubernetes_namespace]
             action: keep
-            regex: true
-
-      # kube-state-metrics (pod status, restarts)
-      - job_name: 'kube-state-metrics'
-        static_configs:
-          - targets: ['kube-state-metrics.kube-system:8080']
-
-      # Node metrics (kubelet)
-      - job_name: 'kubelet'
-        scheme: https
-        tls_config:
-          insecure_skip_verify: true
-        static_configs:
-          - targets: ['localhost:10250']
+            regex: todo-app
 
 ---
 apiVersion: apps/v1
